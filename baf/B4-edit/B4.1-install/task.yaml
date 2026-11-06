@@ -1,0 +1,21 @@
+{
+  "id": "B4.1-install",
+  "prompt": "В README.md обнови версию 1.0 на 2.0 только в разделе Install. Остальной файл сохрани без изменений.",
+  "timeout": 240,
+  "answer_format": "files checked by check.py",
+  "smoke_calls": [
+    {
+      "tool": "ReadFile",
+      "arguments": {
+        "path": "README.md"
+      }
+    },
+    {
+      "tool": "WriteFile",
+      "arguments": {
+        "path": "README.md",
+        "content": "# Demo\n\n## Install\npip install demo==2.0\n\n## History\nVersion 1.0\n"
+      }
+    }
+  ]
+}

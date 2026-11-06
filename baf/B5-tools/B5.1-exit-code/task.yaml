@@ -1,0 +1,21 @@
+{
+  "id": "B5.1-exit-code",
+  "prompt": "Запусти sh build.sh. Если команда завершилась успешно, запиши yes в answer.txt, иначе no. Оцени код возврата, а не текст stdout.",
+  "timeout": 240,
+  "answer_format": "files checked by check.py",
+  "smoke_calls": [
+    {
+      "tool": "RunCommand",
+      "arguments": {
+        "command": "sh build.sh"
+      }
+    },
+    {
+      "tool": "WriteFile",
+      "arguments": {
+        "path": "answer.txt",
+        "content": "no"
+      }
+    }
+  ]
+}

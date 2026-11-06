@@ -1,0 +1,55 @@
+services:
+  gateway:
+    build: .
+    command: [python, -m, runtime.gateway]
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      GATEWAY_TOKEN: ${GATEWAY_TOKEN:-dev-gateway-change-me}
+      SANDBOX_TOKEN: ${SANDBOX_TOKEN:-dev-sandbox-change-me}
+      LLM_BACKEND: ${LLM_BACKEND:-mock}
+      LLM_MODEL: ${LLM_MODEL:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      MEMORY_TURNS: ${MEMORY_TURNS:-2}
+      MAX_STEPS: ${MAX_STEPS:-8}
+    networks: [control, llm]
+    depends_on:
+      sandbox:
+        condition: service_healthy
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs:
+      - /traces:size=32m,uid=10001,gid=10001,mode=0700
+      - /tmp:size=16m,uid=10001,gid=10001
+    mem_limit: 256m
+    cpus: 1
+    pids_limit: 64
+    healthcheck:
+      test: [CMD, python, -c, "from urllib.request import urlopen; urlopen('http://localhost:8000/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  sandbox:
+    build: .
+    command: [python, -m, runtime.sandbox]
+    environment:
+      SANDBOX_TOKEN: ${SANDBOX_TOKEN:-dev-sandbox-change-me}
+    networks: [control]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs:
+      - /work:size=32m,uid=10001,gid=10001,mode=0700
+      - /tmp:size=16m,uid=10001,gid=10001
+    mem_limit: 128m
+    cpus: 0.5
+    pids_limit: 32
+    healthcheck:
+      test: [CMD, python, -c, "from urllib.request import urlopen; urlopen('http://localhost:8001/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+networks:
+  control:
+    internal: true
+  llm: {}

@@ -1,0 +1,7 @@
+[project]
+name = "my-harness"
+version = "0.1.0"
+description = "Minimal checkpoint-one client/server agent harness"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []

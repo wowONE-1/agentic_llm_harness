@@ -1,0 +1,21 @@
+{
+  "id": "B2.1-definition",
+  "prompt": "Найди файл с определением функции parse_date. Запиши относительный путь в answer.txt.",
+  "timeout": 240,
+  "answer_format": "files checked by check.py",
+  "smoke_calls": [
+    {
+      "tool": "RunCommand",
+      "arguments": {
+        "command": "grep -rl 'def parse_date' src"
+      }
+    },
+    {
+      "tool": "WriteFile",
+      "arguments": {
+        "path": "answer.txt",
+        "content": "src/dates.py"
+      }
+    }
+  ]
+}

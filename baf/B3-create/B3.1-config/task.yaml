@@ -1,0 +1,15 @@
+{
+  "id": "B3.1-config",
+  "prompt": "Создай config.json: объект с ключами host (строка localhost), port (число 8080), debug (логическое false), без других ключей.",
+  "timeout": 240,
+  "answer_format": "files checked by check.py",
+  "smoke_calls": [
+    {
+      "tool": "WriteFile",
+      "arguments": {
+        "path": "config.json",
+        "content": "{\"host\":\"localhost\",\"port\":8080,\"debug\":false}"
+      }
+    }
+  ]
+}

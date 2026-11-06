@@ -1,0 +1,21 @@
+{
+  "id": "B1.1-port",
+  "prompt": "Прочитай config/app.yaml и запиши значение порта в answer.txt, только число.",
+  "timeout": 240,
+  "answer_format": "files checked by check.py",
+  "smoke_calls": [
+    {
+      "tool": "ReadFile",
+      "arguments": {
+        "path": "config/app.yaml"
+      }
+    },
+    {
+      "tool": "WriteFile",
+      "arguments": {
+        "path": "answer.txt",
+        "content": "7341"
+      }
+    }
+  ]
+}

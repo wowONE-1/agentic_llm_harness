@@ -1,0 +1,11 @@
+{
+  "version": "v0",
+  "origin": "local checkpoint-one examples, not the official course fixtures",
+  "tasks": [
+    "B1-read/B1.1-port",
+    "B2-search/B2.1-definition",
+    "B3-create/B3.1-config",
+    "B4-edit/B4.1-install",
+    "B5-tools/B5.1-exit-code"
+  ]
+}
